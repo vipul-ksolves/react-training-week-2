@@ -27,10 +27,6 @@ const ToDo = ({ toDo, markDone, setUpdateData, deleteTask }) => {
                     <FontAwesomeIcon icon={faCircleCheck} />
                   </span>
 
-                  <span title="Edit">
-                    <FontAwesomeIcon icon={faPen} />
-                  </span>
-
                   <span title="Delete" onClick={() => deleteTask(task.id)}>
                     <FontAwesomeIcon icon={faTrashCan} />
                   </span>

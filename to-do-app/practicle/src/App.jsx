@@ -16,7 +16,7 @@ const App = () => {
 
   // Temp State
   const [newTask, setNewTask] = useState("");
-  const [updateData, setUpdateData] = useState("");
+  // const [updateData, setUpdateData] = useState("");
 
   // Add task
   const addTask = () => {
