@@ -1,0 +1,6 @@
+UseRef:
+The useRef is a hook that allows to directly create a reference to the DOM element in the functional component.
+
+Syntax:
+
+        const refContainer = useRef(initialValue);
