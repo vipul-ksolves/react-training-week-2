@@ -24,8 +24,5 @@ It returns a ref object with a .current property. The ref object is mutable. It 
 useLayoutEffect: 
 It fires at the end of all DOM mutations. It's best to use useEffect as much as possible over this one as the useLayoutEffect fires synchronously.
 
-useDebugValue: 
-Helps to display a label in React DevTools for custom hooks.
-
 Custom hooks:
 Custom hooks are normal JavaScript functions whose names start with “use” and they may call other hooks(built-in or custom).

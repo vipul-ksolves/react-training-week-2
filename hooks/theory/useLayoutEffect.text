@@ -1,0 +1,9 @@
+The useLayoutEffect works similarly to useEffect but rather working asynchronously like useEffect hook, it fires synchronously after all DOM loading is done loading.
+This is useful for synchronously re-rendering the DOM and also to read the layout from the DOM. 
+But to prevent blocking the page loading, we should always use useEffect hook.
+Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
+
+*** Prefer the standard useEffect when possible to avoid blocking visual updates.
+Syntax:
+
+        useLayoutEffect()
