@@ -7,8 +7,8 @@ import "./App.css";
 // import UseReducer from "./hooks/UseReducer";
 // import UseRef from "./hooks/UseRef";
 // import UseMemo from "./hooks/UseMemo";
-// import UseCallback from "./hooks/UseCallback";
-import UseEffect from "./hooks/UseEffect";
+import UseCallback from "./hooks/UseCallback";
+// import UseEffect from "./hooks/UseEffect";
 
 export const globleData = createContext();
 
@@ -22,7 +22,7 @@ const App = () => {
         {/* <UseReducer /> */}
         {/* <UseRef /> */}
         {/* <UseMemo /> */}
-        {/* <UseCallback /> */}
+        <UseCallback />
         {/* <UseEffect /> */}
       </div>
     </globleData.Provider>
