@@ -1,0 +1,12 @@
+The useReducer Hook is the better alternative to the useState hook.
+Generally more preferred over the useState hook when you have complex state-building logic or when the next state value depends upon its previous value or when the components are needed to be optimized.
+
+The useReducer hook takes three arguments including reducer, initial state, and the function to load the initial state lazily.
+
+Syntax:
+
+        const [state, dispatch] = useReducer(reducer, initialArgs, init);
+        
+** initialArgs is a optional argument
+
+        const [state, dispatch] = useReducer(reducer, initialState);

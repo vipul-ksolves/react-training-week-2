@@ -1,0 +1,2 @@
+Building a custom hook: 
+Creating a custom hook is the same as creating a JavaScript function whose name starts with “use”. It can use other hooks inside it, return anything you want it to return, take anything as parameters.
