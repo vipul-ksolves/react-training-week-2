@@ -3,10 +3,11 @@ import "./App.css";
 
 //components
 // import CustomHooks from "./hooks/CustomHooks";
+// import Child from "./hooks/Child";
 // import UseReducer from "./hooks/UseReducer";
-import UseRef from "./hooks/UseRef";
+// import UseRef from "./hooks/UseRef";
+import UseMemo from "./hooks/UseMemo";
 
-import Child from "./hooks/Child";
 export const globleData = createContext();
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         {/* <Child /> */}
         {/* <UseReducer /> */}
         {/* <UseRef /> */}
+        <UseMemo />
       </div>
     </globleData.Provider>
   );
