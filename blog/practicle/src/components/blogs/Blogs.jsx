@@ -1,14 +1,17 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Input, Label } from "reactstrap";
+import { Label } from "reactstrap";
 
 //css
 import "../../css/card.css";
+import "../../css/blogs.css";
 
 //components
 import Card from "./Card";
 
 const Blogs = () => {
+  const [filterInput, setFilterInput] = useState("");
+  console.log(filterInput);
   const [cardDetails, setCardDetails] = useState([
     {
       id: 1,
@@ -47,24 +50,34 @@ const Blogs = () => {
       isSponsored: true,
     },
   ]);
+
+  const uniqueCategory = [...new Set(cardDetails.map((obj) => obj.category))];
+
+  const dropDown = uniqueCategory.map((category, i) => (
+    <option key={i} value={category}>
+      {category}
+    </option>
+  ));
+
   return (
     <>
       <div className="bg-white text-black pb-5 pb-md-6">
         <div className="container py-2">
           <div id="html" className="row mt-6 article-card">
-            {/* <div className="p-2 ">
-              <Label for="exampleSelect" className="text-white">
-                Filter
-              </Label>
-              <Input id="exampleSelect" name="select" type="select">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Input>
-            </div> */}
-            <Card cardDetails={cardDetails} />
+            <div className="p-2 filer-section ">
+              <div className="filter-data">
+                <Label for="exampleSelect" className="text-white">
+                  Filter
+                </Label>
+                <select
+                  onChange={(e) => setFilterInput(e.target.value)}
+                  className="width text-uppercase"
+                >
+                  {dropDown}
+                </select>
+              </div>
+            </div>
+            <Card cardDetails={cardDetails} filterInput={filterInput} />
           </div>
         </div>
       </div>

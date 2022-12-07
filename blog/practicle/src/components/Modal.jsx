@@ -8,31 +8,41 @@ import {
   Label,
 } from "reactstrap";
 
-function ModalComponent(args) {
+const ModalComponent = () => {
   const [modal, setModal] = useState(false);
+  // const [newBlog, setNewBlog] = useState({});
+  const [selectedFile, setSelectedFile] = useState(null);
+  console.log(selectedFile);
 
   const toggle = () => setModal(!modal);
+
+  const handleChange = (e) => {
+    console.log(e.target.value);
+  };
 
   return (
     <div>
       <Button color="primary" onClick={toggle}>
         Add New
       </Button>
-      <Modal isOpen={modal} toggle={toggle} {...args}>
+      <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Add New Blog</ModalHeader>
         <div className="p-2">
           <Label for="exampleSelect">Catagory</Label>
-          <Input id="exampleSelect" name="select" type="select">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+          <Input
+            onChange={handleChange}
+            id="exampleSelect"
+            name="select"
+            type="select"
+          >
+            <option>Travel</option>
+            <option>History</option>
+            <option>Game</option>
           </Input>
         </div>
         <div className="p-2">
           <Label for="exampleSelect">Sponsored</Label>
-          <Input id="exampleSelect" name="select" type="select">
+          <Input onChange={handleChange} name="select" type="select">
             <option>True</option>
             <option>False</option>
           </Input>
@@ -41,6 +51,8 @@ function ModalComponent(args) {
           <Label for="newImage">Image</Label>
           <Input
             id="newImage"
+            value={selectedFile}
+            onChange={(e) => setSelectedFile(e.target.files[0])}
             name="text"
             placeholder="Image...."
             type="file"
@@ -49,7 +61,7 @@ function ModalComponent(args) {
         <div className="p-2">
           <Label for="exampleEmail">Title</Label>
           <Input
-            id="exampleEmail"
+            onChange={handleChange}
             name="text"
             placeholder="Title..."
             type="text"
@@ -58,7 +70,7 @@ function ModalComponent(args) {
         <div className="p-2">
           <Label for="exampleEmail">Description</Label>
           <Input
-            id="exampleEmail"
+            onChange={handleChange}
             name="text"
             placeholder="Description...."
             type="textarea"
@@ -68,7 +80,7 @@ function ModalComponent(args) {
         <ModalFooter>
           <Button color="primary" onClick={toggle}>
             Submit
-          </Button>{" "}
+          </Button>
           <Button color="secondary" onClick={toggle}>
             Cancel
           </Button>
@@ -76,6 +88,6 @@ function ModalComponent(args) {
       </Modal>
     </div>
   );
-}
+};
 
 export default ModalComponent;
