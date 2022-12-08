@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //css
 import "../css/home.css";
@@ -10,6 +10,8 @@ import Blogs from "../components/blogs/Blogs";
 import Footer from "../components/Footer";
 
 const Home = () => {
+  const [filterInput, setFilterInput] = useState("");
+  const [selectedBlogs, setSelectedBlogs] = useState([]);
   const [cardDetails, setCardDetails] = useState([
     {
       id: 1,
@@ -49,6 +51,39 @@ const Home = () => {
     },
   ]);
 
+  const uniqueCategory = [...new Set(cardDetails?.map((obj) => obj.category))];
+
+  const dropDown = uniqueCategory.map((category, i) => (
+    <option key={i} value={category}>
+      {category}
+    </option>
+  ));
+
+  const handleSelect = (e) => {
+    setFilterInput(e.target.value);
+  };
+
+  const FiterResult = () => {
+    console.log(filterInput);
+    var selectedCategory = cardDetails.filter(function (category) {
+      return category.category === `${filterInput}`;
+    });
+    // console.log(selectedCategory);
+    setSelectedBlogs(selectedCategory);
+  };
+
+  useEffect(() => {
+    FiterResult();
+  }, [filterInput]);
+  // const FiterResult = () => {
+  //   console.log(filterInput);
+  //   var selectedCategory = cardDetails.filter(function (category) {
+  //     return category.category == `${filterInput}`;
+  //   });
+
+  //   // setCardDetails(selectedCategory);
+  //   console.log(selectedCategory);
+  // };
   return (
     <>
       <Navbar />
@@ -67,10 +102,26 @@ const Home = () => {
               <p className="lead text-light display-6 mb-6">
                 This is what we are thinking about...
               </p>
+              <div className="filer-section ">
+                <div className="filter-data">
+                  <h4 className="text-white">Filter</h4>
+                  <select
+                    onChange={handleSelect}
+                    className="width text-uppercase"
+                  >
+                    <option>Select</option>
+                    {dropDown}
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <Blogs cardDetails={cardDetails} setCardDetails={setCardDetails} />
+        <Blogs
+          selectedBlogs={selectedBlogs}
+          cardDetails={cardDetails}
+          setCardDetails={setCardDetails}
+        />
       </div>
       <Footer />
     </>

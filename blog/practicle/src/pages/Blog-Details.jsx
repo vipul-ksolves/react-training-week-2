@@ -9,7 +9,7 @@ import Details from "../components/blogs/Details";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 
-const Blog_details = () => {
+const BlogDetails = () => {
   return (
     <>
       <Navbar />
@@ -49,4 +49,4 @@ const Blog_details = () => {
   );
 };
 
-export default Blog_details;
+export default BlogDetails;

@@ -1,6 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+//components
+import TimeSince from "../../components/Time-Since";
+import CalcRT from "../Calc-RT";
+
 const Card = ({ cardDetails, deleteCard }) => {
   return (
     <>
@@ -28,21 +32,22 @@ const Card = ({ cardDetails, deleteCard }) => {
                   </Link>
                 </h2>
                 <div className="small text-muted mb-3">
-                  5 days ago | 5 min read
+                  {TimeSince(new Date(Date.now() - parseInt(card.publishedAt)))}
+                  ago | {CalcRT(card.body)} min read
                 </div>
                 <p className="card-text">{card.body}</p>
               </div>
             </div>
             <div className="mx-3 d-flex justify-content-between">
-              <button type="button" className="btn btn-info">
-                Update
-              </button>
               <button
                 onClick={() => deleteCard(card.id)}
                 type="button"
                 className="btn btn-danger"
               >
                 Delete
+              </button>
+              <button type="button" className="btn btn-info">
+                Update
               </button>
             </div>
           </div>
