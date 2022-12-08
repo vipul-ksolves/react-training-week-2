@@ -1,0 +1,3 @@
+Redux Toolkit is a set of tools that helps simplify Redux development. It includes utilities for creating and managing Redux stores, as well as for writing Redux actions and reducers.
+
+The Redux team recommends using Redux Toolkit anytime you need to use Redux. 
