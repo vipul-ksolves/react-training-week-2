@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import {
   Button,
   Modal,
@@ -8,18 +9,28 @@ import {
   Label,
 } from "reactstrap";
 
-const ModalComponent = () => {
+const ModalComponent = ({ setCardDetails, cardDetails }) => {
   const [modal, setModal] = useState(false);
-  // const [newBlog, setNewBlog] = useState({});
-  const [selectedFile, setSelectedFile] = useState(null);
-  console.log(selectedFile);
+  const [newBlog, setNewBlog] = useState({
+    id: Math.random() * 1000,
+    title: "",
+    image: "",
+    body: "",
+    publishedAt: new Date(),
+    category: "",
+    isSponsored: "",
+  });
 
   const toggle = () => setModal(!modal);
 
   const handleChange = (e) => {
-    console.log(e.target.value);
+    setNewBlog({ ...newBlog, [e.target.name]: e.target.value });
   };
 
+  const submit = () => {
+    setModal(!modal);
+    setCardDetails([...cardDetails, newBlog]);
+  };
   return (
     <div>
       <Button color="primary" onClick={toggle}>
@@ -31,10 +42,11 @@ const ModalComponent = () => {
           <Label for="exampleSelect">Catagory</Label>
           <Input
             onChange={handleChange}
-            id="exampleSelect"
-            name="select"
+            name="category"
+            placeholder="None"
             type="select"
           >
+            <option>Select</option>
             <option>Travel</option>
             <option>History</option>
             <option>Game</option>
@@ -42,7 +54,8 @@ const ModalComponent = () => {
         </div>
         <div className="p-2">
           <Label for="exampleSelect">Sponsored</Label>
-          <Input onChange={handleChange} name="select" type="select">
+          <Input onChange={handleChange} name="isSponsored" type="select">
+            <option>Select</option>
             <option>True</option>
             <option>False</option>
           </Input>
@@ -50,19 +63,17 @@ const ModalComponent = () => {
         <div className="p-2">
           <Label for="newImage">Image</Label>
           <Input
-            id="newImage"
-            value={selectedFile}
-            onChange={(e) => setSelectedFile(e.target.files[0])}
-            name="text"
-            placeholder="Image...."
-            type="file"
+            onChange={handleChange}
+            name="image"
+            placeholder="Enter Image url ...."
+            type="text"
           />
         </div>
         <div className="p-2">
           <Label for="exampleEmail">Title</Label>
           <Input
             onChange={handleChange}
-            name="text"
+            name="title"
             placeholder="Title..."
             type="text"
           />
@@ -71,15 +82,15 @@ const ModalComponent = () => {
           <Label for="exampleEmail">Description</Label>
           <Input
             onChange={handleChange}
-            name="text"
+            name="body"
             placeholder="Description...."
             type="textarea"
           />
         </div>
 
         <ModalFooter>
-          <Button color="primary" onClick={toggle}>
-            Submit
+          <Button color="primary" onClick={submit}>
+            Create Post
           </Button>
           <Button color="secondary" onClick={toggle}>
             Cancel

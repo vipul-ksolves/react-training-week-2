@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const Card = ({ cardDetails, filterInput }) => {
-  // console.log(cardDetails);
+
+const Card = ({ cardDetails, deleteCard }) => {
   return (
     <>
       {cardDetails.map((card, index) => {
         return (
-          <div className="col-md-6" key={card.id}>
-            <div className="card border-0 img-rising mb-4 mb-lg-5">
+          <div className="col-md-6 mb-5 " key={index}>
+            <div className="card border-0 img-rising mb-lg-5">
               <img
                 src={card.image}
                 className="card-img-top img-fluid"
@@ -32,6 +32,18 @@ const Card = ({ cardDetails, filterInput }) => {
                 </div>
                 <p className="card-text">{card.body}</p>
               </div>
+            </div>
+            <div className="mx-3 d-flex justify-content-between">
+              <button type="button" className="btn btn-info">
+                Update
+              </button>
+              <button
+                onClick={() => deleteCard(card.id)}
+                type="button"
+                className="btn btn-danger"
+              >
+                Delete
+              </button>
             </div>
           </div>
         );
