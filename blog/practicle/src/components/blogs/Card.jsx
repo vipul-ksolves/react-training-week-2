@@ -5,10 +5,15 @@ import { Link } from "react-router-dom";
 import TimeSince from "../../components/Time-Since";
 import CalcRT from "../Calc-RT";
 
+//redux
+import { useDispatch, useSelector } from "react-redux";
+
 const Card = ({ cardDetails, deleteCard }) => {
+  const blogs = useSelector((state) => state.blog.allBlogs);
+  // console.log(blogs);
   return (
     <>
-      {cardDetails.map((card, index) => {
+      {blogs.map((card, index) => {
         return (
           <div className="col-md-6 mb-5 " key={index}>
             <div className="card border-0 img-rising mb-lg-5">

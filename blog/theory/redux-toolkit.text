@@ -1,3 +1,16 @@
 Redux Toolkit is a set of tools that helps simplify Redux development. It includes utilities for creating and managing Redux stores, as well as for writing Redux actions and reducers.
 
-The Redux team recommends using Redux Toolkit anytime you need to use Redux. 
+Recently Redux Team launched Redux Toolkit, an officially recommended and a SOPE library that stands for Simple, Opinionated, Powerful, and Effective state management library. It allows us to write more efficient code, speed up the development process, and automatically apply the best-recommended practices. It was mainly created to solve the THREE MAJOR ISSUES with Redux:
+
+    1. Configuring a Redux store is too complicated.
+    2. Have to add a lot of packages to build a large scale application.
+    3. Redux requires too much boilerplate code which makes it cumbersome to write efficient and clean code.
+    
+It also provides the automatic support for Redux Dev-tools Extension and for immer.js library which is a great tool to deal with immutable objects. You can also use the various predefined functions of Redux Toolkit which not only speeds up the process but also saves time.
+
+Dependencies that comes along with Redux Toolkit:
+
+    immer
+    redux
+    redux-thunk
+    reselect
