@@ -1,9 +1,52 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
+import { getBlog, clearBlog } from "../../redux/reducers/blog/blogSlice";
 
 const Details = () => {
+  const param = useParams();
+  const blogDetail = useSelector((state) => state.blog.blogDetails);
+  // console.log(blogDetail);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getBlog(param.id));
+    return () => {
+      dispatch(clearBlog());
+    };
+  }, []);
+
   return (
     <>
+      <div className="container-fluid py-lg-5 py-md-0 bg-dark text-white hero-page">
+        <div className="container py-lg-5 py-md-6">
+          <div className="row justify-content-center">
+            <div className="col-md-10 col-lg-8">
+              <h1 className="text-sm-sm">{blogDetail.title}</h1>
+              <div className="border border-3 border-light w-15 my-4"></div>
+              <div className="d-flex align-items-center mb-4">
+                <img
+                  src="https://focus-theme.netlify.app/assets/img/tim-schoch.jpg"
+                  className="avatar avatar-sm me-3"
+                  alt="Tim Schoch"
+                  width="1200"
+                  height="800"
+                />
+                <div className="fst-italic small text-light">
+                  by
+                  <Link className="text-decoration-none text-white" to="#">
+                    Tim Schoch
+                  </Link>
+                </div>
+                <div className="small text-light ms-auto">
+                  5 days ago | 5 min read
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="bg-white text-black">
         <div className="container py-3">
           <div className="bg-white mt-n5 mt-md-n6 px-3 px-md-0">

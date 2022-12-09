@@ -8,14 +8,18 @@ import {
   Label,
 } from "reactstrap";
 
-const ModalComponent = ({ setCardDetails, cardDetails }) => {
+import { addBlog } from "../redux/reducers/blog/blogSlice";
+import { useDispatch } from "react-redux";
+
+const ModalComponent = () => {
+  const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [newBlog, setNewBlog] = useState({
     id: Math.random() * 1000,
     title: "",
     image: "",
     body: "",
-    publishedAt: new Date(),
+    publishedAt: "",
     category: "",
     isSponsored: "",
   });
@@ -28,7 +32,7 @@ const ModalComponent = ({ setCardDetails, cardDetails }) => {
 
   const submit = () => {
     setModal(!modal);
-    setCardDetails([...cardDetails, newBlog]);
+    dispatch(addBlog(newBlog));
   };
   return (
     <div>

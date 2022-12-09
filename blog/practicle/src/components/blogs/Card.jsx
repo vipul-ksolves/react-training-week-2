@@ -6,11 +6,29 @@ import TimeSince from "../../components/Time-Since";
 import CalcRT from "../Calc-RT";
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteBlog } from "../../redux/reducers/blog/blogSlice";
 
-const Card = ({ cardDetails, deleteCard }) => {
-  const blogs = useSelector((state) => state.blog.allBlogs);
-  // console.log(blogs);
+const Card = () => {
+  let blogs = useSelector((state) => state.blog.allBlogs);
+  const afterDelete = useSelector((state) => state.blog.deleteBlog);
+  const afterFilter = useSelector((state) => state.blog.filteredBlog);
+  console.log(afterFilter);
+
+  if (afterDelete && afterDelete.length) {
+    blogs = afterDelete;
+  }
+  if (afterFilter && afterFilter.length) {
+    blogs = afterFilter;
+  }
+
+  const dispatch = useDispatch();
+
+  // Delete card
+  const deleteCard = (id) => {
+    console.log(id);
+    dispatch(deleteBlog(id));
+  };
   return (
     <>
       {blogs.map((card, index) => {
@@ -30,7 +48,7 @@ const Card = ({ cardDetails, deleteCard }) => {
                 </div>
                 <h2 className="card-title h3">
                   <Link
-                    to="/detail/4"
+                    to={`/detail/${card.id}`}
                     className="stretched-link text-decoration-none text-dark"
                   >
                     {card.title}

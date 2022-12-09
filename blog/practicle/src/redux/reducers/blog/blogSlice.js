@@ -39,23 +39,75 @@ const initialStateValue = {
       isSponsored: true,
     },
   ],
+
+  blogDetails: {
+    title: "",
+    image: "",
+    body: "",
+    publishedAt: "",
+    category: "",
+    isSponsored: "",
+  },
+
+  filteredBlog: {
+    title: "",
+    image: "",
+    body: "",
+    publishedAt: "",
+    category: "",
+    isSponsored: "",
+  },
+
+  deleteBlog: {
+    title: "",
+    image: "",
+    body: "",
+    publishedAt: "",
+    category: "",
+    isSponsored: "",
+  },
 };
 
-export const blogSlice = createSlice({
+const blogSlice = createSlice({
   name: "blog",
   initialState: initialStateValue,
   reducers: {
-    getBlog: (state) => {
-      state.allBlogs = initialStateValue.allBlogs;
+    getBlog: (state, action) => {
+      state.blogDetails = state.allBlogs.find((el) => el.id == action.payload);
     },
+
+    clearBlog: (state) => {
+      state.blogDetails = {
+        title: "",
+        image: "",
+        body: "",
+        publishedAt: "",
+        category: "",
+        isSponsored: "",
+      };
+    },
+
+    filterBlog: (state, action) => {
+      // console.log(action.payload);
+      state.filteredBlog = state.allBlogs.filter(
+        (card) => card.category == `${action.payload}`
+      );
+    },
+
     deleteBlog: (state, action) => {
-      state.allBlogs = action.payload;
+      state.deleteBlog = state.allBlogs.filter(
+        (card) => card.id !== action.payload
+      );
     },
-    // addBlog: (state) => {},
+
+    addBlog: (state, action) => {
+      state.allBlogs = [action.payload, ...state.allBlogs];
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { getBlog } = blogSlice.actions;
+export const { getBlog, clearBlog, addBlog, deleteBlog, filterBlog } =
+  blogSlice.actions;
 
 export default blogSlice.reducer;
