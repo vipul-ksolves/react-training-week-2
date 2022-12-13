@@ -9,13 +9,14 @@ import Footer from "../components/Footer";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { filterBlog } from "../redux/reducers/blog/blogSlice";
+import { filterBlog } from "../redux/features/blogSlice";
 
 const Home = () => {
-  const allCategory = useSelector((state) => state.blog.allBlogs);
+  const allBlogs = useSelector((state) => state.blog.allBlogs);
   const dispatch = useDispatch();
+  // console.log(allBlogs);
 
-  const uniqueCategory = [...new Set(allCategory?.map((obj) => obj.category))];
+  const uniqueCategory = [...new Set(allBlogs?.map((obj) => obj.category))];
 
   const dropDown = uniqueCategory.map((category, i) => (
     <option key={i} value={category}>
@@ -49,7 +50,7 @@ const Home = () => {
                     onChange={handleSelect}
                     className="width text-uppercase"
                   >
-                    <option>Select</option>
+                    <option>All</option>
                     {dropDown}
                   </select>
                 </div>

@@ -2,20 +2,17 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-import { getBlog, clearBlog } from "../../redux/reducers/blog/blogSlice";
+import { getBlog } from "../../redux/features/blogSlice";
 
 const Details = () => {
   const param = useParams();
   const blogDetail = useSelector((state) => state.blog.blogDetails);
-  // console.log(blogDetail);
+  console.log(blogDetail);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getBlog(param.id));
-    return () => {
-      dispatch(clearBlog());
-    };
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getBlog(param.id));
+  // }, []);
 
   return (
     <>

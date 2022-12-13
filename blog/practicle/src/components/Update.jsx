@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import {
   Button,
   Modal,
@@ -7,15 +7,12 @@ import {
   ModalFooter,
   Label,
 } from "reactstrap";
+import { useSelector, useDispatch } from "react-redux";
 
-import { createBlog } from "../redux/features/blogSlice";
-import { useDispatch } from "react-redux";
-
-const ModalComponent = () => {
-  const dispatch = useDispatch();
+const Update = () => {
+  let blogs = useSelector((state) => state.blog.allBlogs);
   const [modal, setModal] = useState(false);
   const [newBlog, setNewBlog] = useState({
-    id: Math.random() * 1000,
     title: "",
     image: "",
     body: "",
@@ -23,37 +20,49 @@ const ModalComponent = () => {
     category: "",
     isSponsored: "",
   });
+  // const getOne = () => {
+  //   blogs.filter((card) => card.category == `${action.payload}`);
+  // };
 
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    // getOne();
+    setModal(!modal);
+  };
 
   const handleChange = (e) => {
     setNewBlog({ ...newBlog, [e.target.name]: e.target.value });
   };
 
+  const uniqueCategory = [...new Set(blogs?.map((obj) => obj.category))];
+
+  const dropDown = uniqueCategory.map((category, i) => (
+    <option key={i} value={category}>
+      {category}
+    </option>
+  ));
+
+  const handleSelect = (e) => {
+    // dispatch(filterBlog(e.target.value));
+  };
+
   const submit = () => {
     setModal(!modal);
-    dispatch(createBlog(newBlog));
+    // dispatch(createBlog(newBlog));
   };
   return (
     <div>
       <Button color="primary" onClick={toggle}>
-        Add New
+        Update
       </Button>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Add New Blog</ModalHeader>
         <div className="p-2">
           <Label for="exampleSelect">Catagory</Label>
-          <Input
-            onChange={handleChange}
-            name="category"
-            placeholder="None"
-            type="select"
-          >
-            <option>Select</option>
-            <option>Travel</option>
-            <option>History</option>
-            <option>Game</option>
-          </Input>
+
+          <select onChange={handleSelect} className="width text-uppercase">
+            <option>All</option>
+            {dropDown}
+          </select>
         </div>
         <div className="p-2">
           <Label for="exampleSelect">Sponsored</Label>
@@ -93,7 +102,7 @@ const ModalComponent = () => {
 
         <ModalFooter>
           <Button color="primary" onClick={submit}>
-            Create Post
+            Update Post
           </Button>
           <Button color="secondary" onClick={toggle}>
             Cancel
@@ -104,4 +113,4 @@ const ModalComponent = () => {
   );
 };
 
-export default ModalComponent;
+export default memo(Update);
