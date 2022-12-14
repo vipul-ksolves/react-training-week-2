@@ -34,9 +34,6 @@ const Home = () => {
       <div>
         <div className="container-fluid py-5 py-md-6 bg-dark text-white hero-page">
           <div className="container">
-            <div className="d-flex flex-row-reverse">
-              <Modal />
-            </div>
             <h1 className="display-1">Blog</h1>
 
             <div className="col-lg-8">

@@ -7,14 +7,7 @@ const initialStateValue = {
 
   error: null,
 
-  blogDetails: {
-    title: "",
-    image: "",
-    body: "",
-    publishedAt: "",
-    category: "",
-    isSponsored: "",
-  },
+  blogDetails: [],
 
   filteredBlog: {
     title: "",
@@ -26,18 +19,16 @@ const initialStateValue = {
   },
 };
 
-//getBlog
-// let getID = 0;
-// export const getBlog = createAsyncThunk("blog/getBlog", async (id) => {
-//   getID = id;
-//   const res = await fetch(`http://localhost:3333/allBlogs/${id}`).then((data) =>
-//     data.json()
-//   );
-//   return res;
-// });
+//getSingleBlog
+export const getBlog = createAsyncThunk("blog/getBlog", async (id) => {
+  const res = await fetch(`http://localhost:3333/allBlogs/${id}`).then((data) =>
+    data.json()
+  );
+  return res;
+});
 
 //allBlogs
-export const getAllBlog = createAsyncThunk("blog/getBlog", async () => {
+export const getAllBlog = createAsyncThunk("blog/getAllBlog", async () => {
   const res = await fetch("http://localhost:3333/allBlogs").then((data) =>
     data.json()
   );
@@ -55,28 +46,30 @@ export const deleteBlog = createAsyncThunk("blog/deleteBlog", async (id) => {
 });
 
 // createBlog
-export const createBlog = createAsyncThunk("blog/createBlog", async (data) => {
+export const createBlog = createAsyncThunk("createBlog", async (data) => {
   console.log(data);
-  const res = await fetch("http://localhost:3333/allBlogs", {
+  return fetch("http://localhost:3333/allBlogs", {
     method: "POST",
-    header: {
+    headers: {
       Accept: "application/json",
       "Content-type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      id: data.id,
+      title: data.title,
+      image: data.image,
+      body: data.body,
+      publishedAt: data.publishedAt,
+      category: data.category,
+      isSponsored: data.isSponsored,
+    }),
   }).then((data) => data.json());
-  return res;
 });
 
 const blogSlice = createSlice({
   name: "blog",
   initialState: initialStateValue,
   reducers: {
-    // getBlog: (state, action) => {
-    //   console.log(action.payload);
-    //   console.log(state.allBlogs);
-    //   state.blogDetails = state.allBlogs.find((el) => el.id == action.payload);
-    // },
     filterBlog: (state, action) => {
       console.log(action.payload);
       state.filteredBlog = state.allBlogs.filter(
@@ -102,18 +95,18 @@ const blogSlice = createSlice({
       state.error = action.payload;
     },
 
-    // edit/update
-    // [getBlog.pending]: (state) => {
-    //   state.loading = true;
-    // },
-    // [getBlog.fulfilled]: (state) => {
-    //   state.loading = false;
-    //   state.allBlogs = state.allBlogs.filter((card) => card.id === getID);
-    // },
-    // [getBlog.rejected]: (state, action) => {
-    //   state.loading = false;
-    //   state.error = action.payload;
-    // },
+    //getSingleBlog
+    [getBlog.pending]: (state) => {
+      state.loading = true;
+    },
+    [getBlog.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.blogDetails = action.payload;
+    },
+    [getBlog.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
 
     // delate
     [deleteBlog.pending]: (state) => {
@@ -129,18 +122,18 @@ const blogSlice = createSlice({
     },
 
     // create
-    // [createBlog.pending]: (state) => {
-    //   state.loading = true;
-    // },
-    // [createBlog.fulfilled]: (state, action) => {
-    //   state.loading = false;
-    //   // state.allBlogs = state.allBlogs.filter((card) => card.id !== idItem);
-    //   console.log(action.payload);
-    // },
-    // [createBlog.rejected]: (state, action) => {
-    //   state.loading = false;
-    //   state.error = action.payload;
-    // },
+    [createBlog.pending]: (state) => {
+      state.loading = true;
+    },
+    [createBlog.fulfilled]: (state, action) => {
+      state.loading = false;
+      // state.allBlogs = state.allBlogs.filter((card) => card.id !== idItem);
+      // console.log(action.payload);
+    },
+    [createBlog.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 
   //   },

@@ -7,7 +7,7 @@ import "../../css/card.css";
 
 //components
 import CalcRT from "../Calc-RT";
-import Update from "../Update";
+import Update from "../../pages/Update";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -79,7 +79,11 @@ const Card = () => {
                   >
                     Delete
                   </button>
-                  <Update />
+                  <Link to={`/update/${card.id}`}>
+                    <button type="button" className="btn btn-info">
+                      Update
+                    </button>
+                  </Link>
                 </div>
               </div>
             );

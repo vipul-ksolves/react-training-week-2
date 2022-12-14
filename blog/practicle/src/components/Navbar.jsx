@@ -34,12 +34,16 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="nav-item fs-5">
-                <Link className="nav-link active" aria-current="page" to="#">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to={"/addnew"}
+                >
                   New
                 </Link>
               </li>
               <li className="nav-item fs-5">
-                <Link className="nav-link active" aria-current="page" to="#">
+                <Link className="nav-link active" aria-current="page" to="/">
                   Home
                 </Link>
               </li>
