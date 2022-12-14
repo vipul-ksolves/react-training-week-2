@@ -47,9 +47,30 @@ export const deleteBlog = createAsyncThunk("blog/deleteBlog", async (id) => {
 
 // createBlog
 export const createBlog = createAsyncThunk("createBlog", async (data) => {
-  console.log(data);
   return fetch("http://localhost:3333/allBlogs", {
     method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      id: data.id,
+      title: data.title,
+      image: data.image,
+      body: data.body,
+      publishedAt: data.publishedAt,
+      category: data.category,
+      isSponsored: data.isSponsored,
+    }),
+  }).then((data) => data.json());
+});
+
+// editBlog
+export const editBlog = createAsyncThunk("editBlog", async (data) => {
+  console.log(data);
+  // console.log(id);
+  return fetch(`http://localhost:3333/allBlogs/${data.id}`, {
+    method: "PUT",
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
@@ -76,11 +97,6 @@ const blogSlice = createSlice({
         (card) => card.category == `${action.payload}`
       );
     },
-
-    // createBlog: (state, action) => {
-    //   console.log(action.payload);
-    //   // state.allBlogs = [...state.allBlogs, action.payload];
-    // },
   },
   extraReducers: {
     [getAllBlog.pending]: (state) => {
@@ -134,9 +150,19 @@ const blogSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-  },
 
-  //   },
+    // edit
+    [editBlog.pending]: (state) => {
+      state.loading = true;
+    },
+    [editBlog.fulfilled]: (state, action) => {
+      state.loading = false;
+    },
+    [editBlog.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+  },
 });
 
 // Action creators are generated for each case reducer function

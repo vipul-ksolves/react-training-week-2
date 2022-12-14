@@ -43,7 +43,7 @@ const Card = () => {
         <>
           {blogs.map((card, index) => {
             return (
-              <div className="col-md-6 mb-5 " key={index}>
+              <div className="col-md-6  col-xl-4 mb-5 " key={index}>
                 <div className="card border-0 img-rising mb-lg-5">
                   <img
                     src={card.image}

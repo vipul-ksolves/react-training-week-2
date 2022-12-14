@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import "../css/update-form.css";
 import Navbar from "../components/Navbar";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import { getBlog } from "../redux/features/blogSlice";
+import { getBlog, editBlog } from "../redux/features/blogSlice";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 const Update = () => {
-  const allBlogs = useSelector((state) => state.blog.allBlogs);
+  // const allBlogs = useSelector((state) => state.blog.allBlogs);
 
   let blog = useSelector((state) => state.blog.blogDetails);
   // console.log(blog);
@@ -23,7 +23,7 @@ const Update = () => {
   useEffect(() => {
     dispatch(getBlog(id));
     setNewBlog(blog);
-  }, [id]);
+  }, []);
 
   const handleChange = (e) => {
     setNewBlog({ ...newBlog, [e.target.name]: e.target.value });
@@ -40,6 +40,7 @@ const Update = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(newBlog);
+    dispatch(editBlog(newBlog));
   };
   return (
     <div>
