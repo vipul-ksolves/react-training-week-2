@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "../css/update-form.css";
-import Navbar from "../components/Navbar";
+
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { getBlog, editBlog } from "../redux/features/blogSlice";
 
+//component
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+
+//redux
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -111,6 +116,7 @@ const Update = () => {
           <Button onClick={handleSubmit}>Submit</Button>
         </Form>
       </div>
+      <Footer />
     </div>
   );
 };
